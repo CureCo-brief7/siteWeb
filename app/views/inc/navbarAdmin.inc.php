@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="http://localhost/siteWeb/" style="padding: 0 !important; margin: 0 !important; width: 67px !important;">
-            <img src="http://localhost/siteWeb/img/CureCo.png" alt="logo" style="width: 100% !important; height: 100% !important;">
+        <a class="navbar-brand" href="<?=URLROOT?>" style="padding: 0 !important; margin: 0 !important; width: 67px !important;">
+            <img src="<?=URLROOT?>img/CureCo.png" alt="logo" style="width: 100% !important; height: 100% !important;">
         </a>
         <div class="social-media order-lg-last">
             <p class="mb-0 d-flex">
