@@ -9,8 +9,8 @@ class Controller
         return new $model;
     }
 
-    public function view($view, $data = [])
-    {
+    public function view($view, $data = [],$data2 = [])
+    { 
         if (file_exists('../app/views/' . $view . '.php')) {
             require_once '../app/views/' . $view . '.php';
         }

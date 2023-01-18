@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="<?=URLROOT?>" style="padding: 0 !important; margin: 0 !important; width: 67px !important;">
+        <a class="navbar-brand" href="<?=URLROOT?>Admin/dashboard" style="padding: 0 !important; margin: 0 !important; width: 67px !important;">
             <img src="<?=URLROOT?>img/CureCo.png" alt="logo" style="width: 100% !important; height: 100% !important;">
         </a>
         <div class="social-media order-lg-last">
@@ -19,19 +19,13 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto mr-md-3">
                 <li class="nav-item active">
-                    <a href="#" class="nav-link">Home</a>
+                    <a href="<?=URLROOT?>Admin/dashboard" class="nav-link">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">About</a>
+                    <a href="#<?=URLROOT?>Admin/product" class="nav-link">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Work</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Contact</a>
+                    <a href="<?=URLROOT?>Admin/member" class="nav-link">Users</a>
                 </li>
             </ul>
         </div>
