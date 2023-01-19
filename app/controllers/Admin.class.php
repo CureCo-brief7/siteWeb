@@ -128,35 +128,6 @@ class Admin extends Controller
         if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
             redirect('admins');
         } else {
-            if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) ||$_SESSION['user_id'] == ' ' ) {
-                $loginLogout = [
-                    'loginLogout' => 'admin',
-                    'name' => 'login'
-                ];
-            }else{
-                $loginLogout = [
-                    'loginLogout' => 'admin/logout',
-                    'name' => 'logout'
-                ];
-            }
-            $member = $this->adminModel->countItems('id_u', 'users');
-            $product = $this->adminModel->countItems('id_p', 'product');
-            $MinPrix = $this->adminModel->getPrix('ASC');
-            $MaxPrix = $this->adminModel->getPrix('DESC');
-            $data2 = [
-                'usersMember' => $member,
-                'productMember' => $product,
-                'MinPrix' => $MinPrix,
-                'MaxPrix' => $MaxPrix
-            ];
-            $this->view('admin/dashboard', $loginLogout, $data2);
-        }
-    }
-    public function member()
-    {
-        if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
-            redirect('admins');
-        } else {
             if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
                 $loginLogout = [
                     'loginLogout' => 'admin',
@@ -168,7 +139,43 @@ class Admin extends Controller
                     'name' => 'logout'
                 ];
             }
-            $this->view('admin/member', $loginLogout);
+            $member = $this->adminModel->countItems('id_u', 'users');
+            $product = $this->adminModel->countItems('id_p', 'product');
+            $MinPrix = $this->adminModel->getPrix('ASC');
+            $MaxPrix = $this->adminModel->getPrix('DESC');
+            $sommePrice = $this->adminModel->sumPrice();
+            $data2 = [
+                'usersMember' => $member,
+                'productMember' => $product,
+                'MinPrix' => $MinPrix,
+                'MaxPrix' => $MaxPrix,
+                'Price' => $sommePrice
+            ];
+            $this->view('admin/dashboard', $loginLogout, $data2);
+        }
+    }
+    public function member()
+    {
+        if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+            redirect('admins');
+        } else {
+
+            if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+                $loginLogout = [
+                    'loginLogout' => 'admin',
+                    'name' => 'login'
+                ];
+            } else {
+                $loginLogout = [
+                    'loginLogout' => 'admin/logout',
+                    'name' => 'logout'
+                ];
+            }
+            $users = $this->adminModel->getUsers();
+            $data2 = [
+                'users' => $users
+            ];
+            $this->view('admin/member', $loginLogout, $data2);
         }
     }
     public function product()
@@ -190,9 +197,48 @@ class Admin extends Controller
             $this->view('admin/product', $loginLogout);
         }
     }
+    public function userProduct($id)
+    {
+        if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+            redirect('admins');
+        } else {
+            $products = $this->adminModel->getProductByIdUser($id);
+            $data2 = [
+                'Products' => $products
+            ];
+            if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+                $loginLogout = [
+                    'loginLogout' => 'admin',
+                    'name' => 'login'
+                ];
+            } else {
+                $loginLogout = [
+                    'loginLogout' => 'admin/logout',
+                    'name' => 'logout'
+                ];
+            }
+            $this->view('admin/userProduct', $loginLogout,$data2);
+        }
+
+    }
+    public function userEdit($id)
+    {
+        echo $id;
+    }
+    public function userDelete($id)
+    {
+        echo $id;
+    }
+    public function productEdit($id)
+    {
+        echo $id;
+    }
+    public function productDelete($id)
+    {
+        echo $id;
+    }
     public function showProduct($id)
     {
         echo $id;
     }
-    
 }

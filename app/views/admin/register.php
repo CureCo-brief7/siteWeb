@@ -1,7 +1,7 @@
 <?php
 $noNavbarAdmin = '';
 $noNavbarMember = '';
-include_once APPROOT . '/views/inc/header.inc.php' 
+include_once APPROOT . '/views/inc/headerAdmin.inc.php' 
 ?>
     <div class="row">
         <div class="col-md-6 mx-auto mt-4">
