@@ -125,6 +125,74 @@ class Admin extends Controller
     }
     public function dashboard()
     {
-        echo $_SESSION['user_id'] . $_SESSION['user_name'];
+        if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+            redirect('admins');
+        } else {
+            if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) ||$_SESSION['user_id'] == ' ' ) {
+                $loginLogout = [
+                    'loginLogout' => 'admin',
+                    'name' => 'login'
+                ];
+            }else{
+                $loginLogout = [
+                    'loginLogout' => 'admin/logout',
+                    'name' => 'logout'
+                ];
+            }
+            $member = $this->adminModel->countItems('id_u', 'users');
+            $product = $this->adminModel->countItems('id_p', 'product');
+            $MinPrix = $this->adminModel->getPrix('ASC');
+            $MaxPrix = $this->adminModel->getPrix('DESC');
+            $data2 = [
+                'usersMember' => $member,
+                'productMember' => $product,
+                'MinPrix' => $MinPrix,
+                'MaxPrix' => $MaxPrix
+            ];
+            $this->view('admin/dashboard', $loginLogout, $data2);
+        }
     }
+    public function member()
+    {
+        if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+            redirect('admins');
+        } else {
+            if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+                $loginLogout = [
+                    'loginLogout' => 'admin',
+                    'name' => 'login'
+                ];
+            } else {
+                $loginLogout = [
+                    'loginLogout' => 'admin/logout',
+                    'name' => 'logout'
+                ];
+            }
+            $this->view('admin/member', $loginLogout);
+        }
+    }
+    public function product()
+    {
+        if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+            redirect('admins');
+        } else {
+            if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+                $loginLogout = [
+                    'loginLogout' => 'admin',
+                    'name' => 'login'
+                ];
+            } else {
+                $loginLogout = [
+                    'loginLogout' => 'admin/logout',
+                    'name' => 'logout'
+                ];
+            }
+            $this->view('admin/product', $loginLogout);
+        }
+    }
+    public function showProduct($id)
+    {
+        echo $id;
+    }
+    
 }

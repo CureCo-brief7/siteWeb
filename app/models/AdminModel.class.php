@@ -41,4 +41,24 @@ class AdminModel
         }
         
     }
+    public function countItems($item, $table)
+    {
+
+        $this->db->query("SELECT COUNT($item) FROM $table");
+
+        $this->db->execute();
+
+        return $this->db->fetchColumn();
+    }
+    public function getPrix($ord)
+    {
+        $query = "SELECT * FROM `product` ORDER BY `product`.`Price` $ord";
+        $this->db->query($query);
+        $this->db->execute();
+        $products = $this->db->fetchAll();
+        if($products)
+            return $products[0];
+        else
+            return false;
+    }
 }

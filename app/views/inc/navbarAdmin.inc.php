@@ -18,11 +18,11 @@
         </button>
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto mr-md-3">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a href="<?=URLROOT?>Admin/dashboard" class="nav-link">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#<?=URLROOT?>Admin/product" class="nav-link">Products</a>
+                    <a href="<?=URLROOT?>Admin/product" class="nav-link">Products</a>
                 </li>
                 <li class="nav-item">
                     <a href="<?=URLROOT?>Admin/member" class="nav-link">Users</a>
