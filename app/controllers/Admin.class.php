@@ -183,6 +183,10 @@ class Admin extends Controller
         if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
             redirect('admins');
         } else {
+            $products = $this->adminModel->getProducts();
+            $data2 = [
+                'products' => $products
+            ];
             if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
                 $loginLogout = [
                     'loginLogout' => 'admin',
@@ -194,7 +198,7 @@ class Admin extends Controller
                     'name' => 'logout'
                 ];
             }
-            $this->view('admin/product', $loginLogout);
+            $this->view('admin/product', $loginLogout,$data2);
         }
     }
     public function userProduct($id)
@@ -217,7 +221,7 @@ class Admin extends Controller
                     'name' => 'logout'
                 ];
             }
-            $this->view('admin/userProduct', $loginLogout,$data2);
+            $this->view('admin/userProduct', $loginLogout, $data2);
         }
 
     }
@@ -229,13 +233,79 @@ class Admin extends Controller
     {
         echo $id;
     }
+    public function productAdd()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $name = $_POST['Name'];
+            $Prix = $_POST['Prix'];
+            $Quantity = $_POST['Quantity'];
+            $Description = $_POST['Description'];
+            $Image = $_POST['Image'];
+                $this->adminModel->addProduct($name, $Prix, $Quantity, $Description, $Image);
+            redirectHome('back');
+        } else {
+            if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+                redirect('admins');
+            } else {
+                if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+                    $loginLogout = [
+                        'loginLogout' => 'admin',
+                        'name' => 'login'
+                    ];
+                } else {
+                    $loginLogout = [
+                        'loginLogout' => 'admin/logout',
+                        'name' => 'logout'
+                    ];
+                }
+                $this->view('admin/productAdd', $loginLogout);
+            }
+        }
+    }
     public function productEdit($id)
     {
-        echo $id;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $name = $_POST['Name'];
+            $Prix = $_POST['Prix'];
+            $Quantity = $_POST['Quantity'];
+            $Description = $_POST['Description'];
+            $Image = $_POST['Image'];
+            if (empty($Image) || $Image == '') {
+                $this->adminModel->updateProductSansImage($name, $Prix, $Quantity, $Description, $id);
+            } else {
+                $this->adminModel->updateProduct($name, $Prix, $Quantity, $Description, $Image, $id);
+            }
+            redirectHome('back');
+            
+        } else {
+            if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+                redirect('admins');
+            } else {
+                $product = $this->adminModel->getProduct($id);
+                $data2 = [
+                    'Product' => $product
+                ];
+                if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+                    $loginLogout = [
+                        'loginLogout' => 'admin',
+                        'name' => 'login'
+                    ];
+                } else {
+                    $loginLogout = [
+                        'loginLogout' => 'admin/logout',
+                        'name' => 'logout'
+                    ];
+                }
+                $this->view('admin/productEdit', $loginLogout, $data2);
+            }
+        }
     }
     public function productDelete($id)
     {
-        echo $id;
+        $this->adminModel->deleteProduct($id);
+        redirectHome('back');
     }
     public function showProduct($id)
     {

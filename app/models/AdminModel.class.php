@@ -23,6 +23,19 @@ class AdminModel
         $this->db->execute();
         return $this->db->fetchAll();
     }
+    public function getProduct($id)
+    {
+        $this->db->query("SELECT * FROM product WHERE id_p = :id");
+        $this->db->bind(":id", $id);
+        $this->db->execute();
+        return $this->db->fetchAll();
+    }
+    public function getProducts()
+    {
+        $this->db->query("SELECT * FROM product");
+        $this->db->execute();
+        return $this->db->fetchAll();
+    }
     public function getUsers()
     {
         $this->db->query("SELECT * FROM users");
@@ -81,5 +94,63 @@ class AdminModel
         $this->db->execute();
         $count = $this->db->fetchColumn();
         return $count;
+    }
+    public function updateProduct($name, $Prix, $Quantity, $Description, $Image, $id)
+    {
+        $this->db->query("UPDATE 
+                                product
+                          SET 
+                                Name =:name,
+                                Description = :desc,
+                                Price = :price,
+                                Quantity = :quan,
+                                Image = :img
+                          WHERE 
+                                id_p = :id_p
+                        ");
+        $this->db->bind(':name', $name);
+        $this->db->bind(':desc', $Description);
+        $this->db->bind(':price', $Prix);
+        $this->db->bind(':quan', $Quantity);
+        $this->db->bind(':img', $Image);
+        $this->db->bind(':id_p', $id);
+        $this->db->execute();
+    }
+    public function updateProductSansImage($name, $Prix, $Quantity, $Description, $id)
+    {
+        $this->db->query("UPDATE 
+                                product
+                          SET 
+                                Name =:name,
+                                Description = :desc,
+                                Price = :price,
+                                Quantity = :quan
+                          WHERE 
+                                id_p = :id_p
+                        ");
+        $this->db->bind(':name', $name);
+        $this->db->bind(':desc', $Description);
+        $this->db->bind(':price', $Prix);
+        $this->db->bind(':quan', $Quantity);
+        $this->db->bind(':id_p', $id);
+        $this->db->execute();
+    }
+    public function deleteProduct($id)
+    {
+        $this->db->query("DELETE FROM product WHERE id_p = :id_p");
+        $this->db->bind(':id_p', $id);
+        $this->db->execute();
+    }
+    public function addProduct($name, $Prix, $Quantity, $Description, $Image)
+    {
+        $userId = $_SESSION['user_id'];
+        $this->db->query("INSERT INTO product (Name, Description, Price, Quantity, Image, User_id) VALUES (:name,:desc,:price,:quan,:img,:userId)");
+        $this->db->bind(':name', $name);
+        $this->db->bind(':desc', $Description);
+        $this->db->bind(':price', $Prix);
+        $this->db->bind(':quan', $Quantity);
+        $this->db->bind(':img', $Image);
+        $this->db->bind(':userId', $userId);
+        $this->db->execute();
     }
 }

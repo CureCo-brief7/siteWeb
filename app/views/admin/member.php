@@ -1,32 +1,36 @@
 <?php
 $noNavbarMember = '';
 $noFooter = '';
-include_once APPROOT . '/views/inc/headerAdmin.inc.php'
-    ?>
+include_once APPROOT . '/views/inc/headerAdmin.inc.php';
+?>
 <div class="container" style="margin-top: 50px;">
     <div class="row">
 
         <div class=" col-md-10 ml-auto mr-auto">
-        <h4><small>In Role 0 For Members And 1 For Admins</small></h4>
             <div class="table-responsive">
-                <table class="table">
+                <table class="table text-left">
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
                             <th>UserName</th>
                             <th>Email</th>
-                            <th class="text-right">Role</th>
-                            <th class="text-right">Actions</th>
+                            <th class="">Role</th>
+                            <th class="">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($data2['users'] as $user) : ?>
+                        <?php foreach($data2['users'] as $user) : 
+                            if ($user->Role == 1) {
+                                $Role = 'Admin';
+                            } elseif ($user->Role == 0){
+                                $Role = 'Member';
+                            }?>
                         <tr>
                             <td class="text-center"><?=$user->id_u?></td>
                             <td><?=$user->userName?></td>
                             <td><?=$user->Email?></td>
-                            <td class="text-right"><?=$user->Role?></td>
-                            <td class="td-actions text-right">
+                            <td class=""><?=$Role?></td>
+                            <td class="td-actions">
                                 <a href="<?= URLROOT ?>admin/userProduct/<?= $user->id_u ?>">
                                     <button type="button" rel="tooltip"
                                         class="btn btn-info btn-link btn-just-icon btn-sm" data-original-title=""
