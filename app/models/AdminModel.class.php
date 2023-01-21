@@ -97,6 +97,7 @@ class AdminModel
     }
     public function updateProduct($name, $Prix, $Quantity, $Description, $Image, $id)
     {
+        $date = date("Y") . "-" . date("m") . "-" .date("d");
         $this->db->query("UPDATE 
                                 product
                           SET 
@@ -104,7 +105,8 @@ class AdminModel
                                 Description = :desc,
                                 Price = :price,
                                 Quantity = :quan,
-                                Image = :img
+                                Image = :img,
+                                date = :date
                           WHERE 
                                 id_p = :id_p
                         ");
@@ -112,19 +114,22 @@ class AdminModel
         $this->db->bind(':desc', $Description);
         $this->db->bind(':price', $Prix);
         $this->db->bind(':quan', $Quantity);
+        $this->db->bind(':date', $date);
         $this->db->bind(':img', $Image);
         $this->db->bind(':id_p', $id);
         $this->db->execute();
     }
     public function updateProductSansImage($name, $Prix, $Quantity, $Description, $id)
     {
+        $date = date("Y") . "-" . date("m") . "-" .date("d");
         $this->db->query("UPDATE 
                                 product
                           SET 
                                 Name =:name,
                                 Description = :desc,
                                 Price = :price,
-                                Quantity = :quan
+                                Quantity = :quan,
+                                date = :date
                           WHERE 
                                 id_p = :id_p
                         ");
@@ -132,6 +137,7 @@ class AdminModel
         $this->db->bind(':desc', $Description);
         $this->db->bind(':price', $Prix);
         $this->db->bind(':quan', $Quantity);
+        $this->db->bind(':date', $date);
         $this->db->bind(':id_p', $id);
         $this->db->execute();
     }
@@ -143,14 +149,16 @@ class AdminModel
     }
     public function addProduct($name, $Prix, $Quantity, $Description, $Image)
     {
+        $date = date("Y") . "-" . date("m") . "-" .date("d");
         $userId = $_SESSION['user_id'];
-        $this->db->query("INSERT INTO product (Name, Description, Price, Quantity, Image, User_id) VALUES (:name,:desc,:price,:quan,:img,:userId)");
+        $this->db->query("INSERT INTO product (Name, Description, Price, Quantity, Image, User_id,date) VALUES (:name,:desc,:price,:quan,:img,:userId,:date)");
         $this->db->bind(':name', $name);
         $this->db->bind(':desc', $Description);
         $this->db->bind(':price', $Prix);
         $this->db->bind(':quan', $Quantity);
         $this->db->bind(':img', $Image);
         $this->db->bind(':userId', $userId);
+        $this->db->bind(':date', $date);
         $this->db->execute();
     }
 }

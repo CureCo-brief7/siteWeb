@@ -8,54 +8,59 @@ class Admin extends Controller
     }
     public function index()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $data = [
-                'email' => $_POST['userEmail'],
-                'password' => $_POST['userPassword'],
-                'email_err' => '',
-                'password_err' => ''
-            ];
-            // check if email exist
-            if (!$this->adminModel->getUserByEmail($data['email'])) {
-                $data['email_err'] = 'User not exist';
-            }
-            if (empty($data['email']))
-                $data['email_err'] = 'Please enter email';
-            if (empty($data['password']))
-                $data['password_err'] = 'Please enter password';
+        if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data = [
+                    'email' => $_POST['userEmail'],
+                    'password' => $_POST['userPassword'],
+                    'email_err' => '',
+                    'password_err' => ''
+                ];
+                // check if email exist
+                if (!$this->adminModel->getUserByEmail($data['email'])) {
+                    $data['email_err'] = 'User not exist';
+                }
+                if (empty($data['email']))
+                    $data['email_err'] = 'Please enter email';
+                if (empty($data['password']))
+                    $data['password_err'] = 'Please enter password';
 
-            if (empty($data['email_err']) && empty($data['password_err'])) {
-                $user = $this->adminModel->login($data['email'], $data['password']);
-                if ($user) {
-                    // set The sessions
-                    $_SESSION['user_id'] = $user->id_u;
-                    $_SESSION['user_name'] = $user->userName;
-                    redirect('Admin/dashboard');
+                if (empty($data['email_err']) && empty($data['password_err'])) {
+                    $user = $this->adminModel->login($data['email'], $data['password']);
+                    if ($user) {
+                        // set The sessions
+                        $_SESSION['user_id'] = $user->id_u;
+                        $_SESSION['user_name'] = $user->userName;
+                        redirect('Admin/dashboard');
+                    } else {
+                        // password incorrect
+                        $data['password_err'] = 'Password Incorrect';
+                        $this->view('Admin/index', $data);
+                    }
                 } else {
-                    // password incorrect
-                    $data['password_err'] = 'Password Incorrect';
+                    // user register failed
                     $this->view('Admin/index', $data);
                 }
             } else {
-                // user register failed
+                $data = [
+                    'name' => '',
+                    'email' => '',
+                    'password' => '',
+                    'confirm-password' => '',
+                    'name_err' => '',
+                    'email_err' => '',
+                    'password_err' => '',
+                    'confirm-password_err' => ''
+                ];
+
+                // load the register
                 $this->view('Admin/index', $data);
             }
         } else {
-            $data = [
-                'name' => '',
-                'email' => '',
-                'password' => '',
-                'confirm-password' => '',
-                'name_err' => '',
-                'email_err' => '',
-                'password_err' => '',
-                'confirm-password_err' => ''
-            ];
-
-            // load the register
-            $this->view('Admin/index', $data);
+            redirect('Admin/dashboard');
         }
+
     }
     public function register()
     {
@@ -198,7 +203,7 @@ class Admin extends Controller
                     'name' => 'logout'
                 ];
             }
-            $this->view('admin/product', $loginLogout,$data2);
+            $this->view('admin/product', $loginLogout, $data2);
         }
     }
     public function userProduct($id)
@@ -237,12 +242,14 @@ class Admin extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $name = $_POST['Name'];
-            $Prix = $_POST['Prix'];
-            $Quantity = $_POST['Quantity'];
-            $Description = $_POST['Description'];
-            $Image = $_POST['Image'];
-                $this->adminModel->addProduct($name, $Prix, $Quantity, $Description, $Image);
+            for ($i=0; $i < count($_POST['Name']); $i++) { 
+                $name = $_POST['Name'][$i];
+                $Prix = $_POST['Prix'][$i];
+                $Quantity = $_POST['Quantity'][$i];
+                $Description = $_POST['Description'][$i];
+                $Image = $_FILES['Image']['name'][$i];
+                $this->adminModel->addProduct($name, $Prix, $Quantity, $Description, $Image);    
+            }
             redirectHome('back');
         } else {
             if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
@@ -278,7 +285,7 @@ class Admin extends Controller
                 $this->adminModel->updateProduct($name, $Prix, $Quantity, $Description, $Image, $id);
             }
             redirectHome('back');
-            
+
         } else {
             if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
                 redirect('admins');

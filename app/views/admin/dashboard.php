@@ -56,7 +56,7 @@ include_once APPROOT . '/views/inc/headerAdmin.inc.php'
         </div>
 
         <div class="col-md-3">
-            <a href="<?= URLROOT ?>admin/showProduct/<?= $data2['MinPrix']->id_p ?>">
+            <a href="<?= URLROOT ?>admin/showProduct/<?= $data2['MaxPrix']->id_p ?>">
                 <div class="card-counter success">
                     <i class="fa fa-money-bill-1-wave"></i>
                     <span class="count-numbers">

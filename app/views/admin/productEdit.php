@@ -15,7 +15,7 @@ include_once APPROOT . '/views/inc/headerAdmin.inc.php';
                                 <label class="form-control-label px-3">
                                     Name<span class="text-danger"> *</span>
                                 </label>
-                                <input value="<?= $data2['Product'][0]->Name ?>" type="text" name="Name"
+                                <input required value="<?= $data2['Product'][0]->Name ?>" type="text" name="Name"
                                     placeholder="Enter Name Of Product" onblur="validate(1)">
                             </div>
                         </div>
@@ -24,14 +24,14 @@ include_once APPROOT . '/views/inc/headerAdmin.inc.php';
                                 <label class="form-control-label px-3">
                                     Prix<span class="text-danger"> *</span>
                                 </label>
-                                <input value="<?= $data2['Product'][0]->Price ?>" type="number" name="Prix"
+                                <input required value="<?= $data2['Product'][0]->Price ?>" type="number" name="Prix"
                                     placeholder="Enter Prix Of Product" onblur="validate(2)">
                             </div>
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">
                                     Quantity<span class="text-danger"> *</span>
                                 </label>
-                                <input value="<?= $data2['Product'][0]->Quantity ?>" type="number" name="Quantity"
+                                <input required value="<?= $data2['Product'][0]->Quantity ?>" type="number" name="Quantity"
                                     placeholder="Enter Quantity Of Product" onblur="validate(3)">
                             </div>
                         </div>
@@ -40,7 +40,7 @@ include_once APPROOT . '/views/inc/headerAdmin.inc.php';
                                 <label class="form-control-label px-3">
                                     Description<span class="text-danger"> *</span>
                                 </label>
-                                <textarea style="resize : none;height: 100px;" type="text" name="Description"
+                                <textarea required style="resize : none;height: 100px;" type="text" name="Description"
                                     placeholder="Description"
                                     onblur="validate(4)"><?= $data2['Product'][0]->Description ?></textarea>
                             </div>
@@ -50,19 +50,15 @@ include_once APPROOT . '/views/inc/headerAdmin.inc.php';
                                 <label class="form-control-label px-3">
                                     Image<span class="text-danger"> *</span>
                                 </label>
-                                <input src="<?= URLROOT?>img/<?= $data2['Product'][0]->Image ?>" type="image" onblur="validate(4)">
+                                <input required src="<?= URLROOT?>img/<?= $data2['Product'][0]->Image ?>" type="image" onblur="validate(4)">
                             </div>
                         </div>
-                        <div class="file-upload">
-                            <button class="file-upload-btn" type="button"
-                                onclick="$('.file-upload-input').trigger( 'click' )">Edit
-                                Image</button>
-
+                        <div class="row justify-content-between file-upload">
                             <div class="image-upload-wrap">
-                                <input class="file-upload-input"  name="Image" type='file' onchange="readURL(this);"
+                                <input required class="file-upload-input required"  name="Image" type='file' onchange="readURL(this);"
                                     accept="image/*" />
                                 <div class="drag-text">
-                                    <h3>Drag and drop a file or select add Image</h3>
+                                    <h3>Drag and drop a file or select Image To Edit</h3>
                                 </div>
                             </div>
                             <div class="file-upload-content">
@@ -75,7 +71,7 @@ include_once APPROOT . '/views/inc/headerAdmin.inc.php';
                         </div>
                         <div class="row justify-content-end">
                             <div class="form-group col-sm-6">
-                                <input type="submit" class="btn-block btn-primary" value="Edit Product">
+                                <input required type="submit" class="btn-block btn-primary" value="Edit Product">
                             </div>
                         </div>
                     </form>
