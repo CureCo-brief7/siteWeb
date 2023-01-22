@@ -131,7 +131,7 @@ class Admin extends Controller
     public function dashboard()
     {
         if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
-            redirect('admins');
+            redirect('admin');
         } else {
             if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
                 $loginLogout = [
@@ -162,7 +162,7 @@ class Admin extends Controller
     public function member()
     {
         if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
-            redirect('admins');
+            redirect('admin');
         } else {
 
             if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
@@ -186,9 +186,14 @@ class Admin extends Controller
     public function product()
     {
         if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
-            redirect('admins');
+            redirect('admin');
         } else {
-            $products = $this->adminModel->getProducts();
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $libelle = $_POST['search'];
+                $products = $this->adminModel->search($libelle);
+            } else {
+                $products = $this->adminModel->getProducts();
+            }
             $data2 = [
                 'products' => $products
             ];
@@ -204,12 +209,13 @@ class Admin extends Controller
                 ];
             }
             $this->view('admin/product', $loginLogout, $data2);
+
         }
     }
     public function userProduct($id)
     {
         if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
-            redirect('admins');
+            redirect('admin');
         } else {
             $products = $this->adminModel->getProductByIdUser($id);
             $data2 = [
@@ -230,30 +236,23 @@ class Admin extends Controller
         }
 
     }
-    public function userEdit($id)
-    {
-        echo $id;
-    }
-    public function userDelete($id)
-    {
-        echo $id;
-    }
+
     public function productAdd()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            for ($i=0; $i < count($_POST['Name']); $i++) { 
+            for ($i = 0; $i < count($_POST['Name']); $i++) {
                 $name = $_POST['Name'][$i];
                 $Prix = $_POST['Prix'][$i];
                 $Quantity = $_POST['Quantity'][$i];
                 $Description = $_POST['Description'][$i];
                 $Image = $_FILES['Image']['name'][$i];
-                $this->adminModel->addProduct($name, $Prix, $Quantity, $Description, $Image);    
+                $this->adminModel->addProduct($name, $Prix, $Quantity, $Description, $Image);
             }
             redirectHome('back');
         } else {
             if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
-                redirect('admins');
+                redirect('admin');
             } else {
                 if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
                     $loginLogout = [
@@ -288,7 +287,7 @@ class Admin extends Controller
 
         } else {
             if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
-                redirect('admins');
+                redirect('admin');
             } else {
                 $product = $this->adminModel->getProduct($id);
                 $data2 = [
@@ -317,7 +316,7 @@ class Admin extends Controller
     public function showProduct($id)
     {
         if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
-            redirect('admins');
+            redirect('admin');
         } else {
             $product = $this->adminModel->getProduct($id);
             $data2 = [
@@ -335,6 +334,41 @@ class Admin extends Controller
                 ];
             }
             $this->view('admin/productShow', $loginLogout, $data2);
+        }
+    }
+    public function userEdit($id)
+    {
+        echo $id;
+    }
+    public function userDelete($id)
+    {
+        $this->adminModel->deleteUser($id);
+        redirectHome('');
+    }
+    public function orderProduct($by, $order)
+    {
+        if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+            redirect('admin');
+        } else {
+            $products = $this->adminModel->trie($by, $order);
+            $data2 = [
+                'products' => $products
+            ];
+            // echo '<pre>';
+            // var_dump($data2);
+            // die;
+            if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+                $loginLogout = [
+                    'loginLogout' => 'admin',
+                    'name' => 'login'
+                ];
+            } else {
+                $loginLogout = [
+                    'loginLogout' => 'admin/logout',
+                    'name' => 'logout'
+                ];
+            }
+            $this->view('admin/product', $loginLogout, $data2);
         }
     }
 }

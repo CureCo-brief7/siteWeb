@@ -7,29 +7,55 @@ include_once APPROOT . '/views/inc/headerAdmin.inc.php'
     <div class="row">
         <div class=" col-md-10 ml-auto mr-auto">
             <div class="table-responsive">
-                <span class="span2">
-                    <a href="<?=URLROOT?>admin/productAdd"></a>
-                </span>
+                <div class="addSear">
+                    <span class="span2">
+                        <a href="<?= URLROOT ?>admin/productAdd"></a>
+                    </span>
+                    <div class="bodyRech">
+                        <form action="<?= URLROOT ?>admin/product" method="post" class="search-bar">
+                            <input class="inputRech" type="search" name="search" pattern=".*\S.*" required>
+                            <button class="search-btn btnRech" type="submit">
+                                <span class="spanRech">Search</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
                 <table class="table text-left">
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Date</th>
+                            <th>Price <span class="Decore">[</span> <span class="BY"><a
+                                        href="<?= URLROOT ?>Admin/orderProduct/PRICE/ASC">ASC</a></span> <span
+                                    class="Decore">|</span> <span class="BY"><a
+                                        href="<?= URLROOT ?>Admin/orderProduct/PRICE/DESC">DESC</a></span> <span
+                                    class="Decore">]</span></th>
+                            <th>Quantity <span class="Decore">[</span> <span class="BY"><a
+                                        href="<?= URLROOT ?>Admin/orderProduct/QUANTITY/ASC">ASC</a></span> <span
+                                    class="Decore">|</span> <span class="BY"><a
+                                        href="<?= URLROOT ?>Admin/orderProduct/QUANTITY/DESC">DESC</a></span> <span
+                                    class="Decore">]</span></th>
+                            <th>Date <span class="Decore">[</span> <span class="BY"><a
+                                        href="<?= URLROOT ?>Admin/orderProduct/DATE/ASC">ASC</a></span> <span
+                                    class="Decore">|</span> <span class="BY"><a
+                                        href="<?= URLROOT ?>Admin/orderProduct/DATE/DESC">DESC</a></span> <span
+                                    class="Decore">]</span></th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($data2['products'] as $Product): ?>
                             <tr>
-                                <td class="text-center"><?= $Product->id_p ?></td>
+                                <td class="text-center">
+                                    <?= $Product->id_p ?>
+                                </td>
                                 <td>
                                     <?= $Product->Name ?>
                                 </td>
-                                <td><?= $Product->Description ?></td>
+                                <td>
+                                    <?= $Product->Description ?>
+                                </td>
                                 <td>
                                     <?= $Product->Price ?> DH
                                 </td>

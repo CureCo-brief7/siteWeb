@@ -151,9 +151,6 @@ class AdminModel
     {
         $date = date("Y") . "-" . date("m") . "-" .date("d");
         $userId = $_SESSION['user_id'];
-        // echo '<pre>';
-        //         var_dump($name, $Prix, $Quantity, $Description, $Image,$date,$userId);
-        // die;
         $this->db->query("INSERT INTO product (Name, Description, Price, Quantity, Image, User_id,date) VALUES (:name,:desc,:price,:quan,:img,:userId,:date)");
         $this->db->bind(':name', $name);
         $this->db->bind(':desc', $Description);
@@ -163,5 +160,24 @@ class AdminModel
         $this->db->bind(':userId', $userId);
         $this->db->bind(':date', $date);
         $this->db->execute();
+    }
+    public function deleteUser($id)
+    {
+        $this->db->query("DELETE FROM users WHERE id_u = :id_u");
+        $this->db->bind(':id_u', $id);
+        $this->db->execute();
+    }
+    public function trie( $by, $order )
+    {
+        $sql = 'SELECT * FROM `product` ORDER BY `product`.`' . $by . '` ' . $order;
+        $this->db->query($sql);
+        $this->db->execute();
+        return $this->db->fetchAll();
+    }
+    function search($libelle){
+        $this->db->query("SELECT * FROM product p WHERE p.Name LIKE '%$libelle%'");
+        $this->db->execute();
+        $data = $this->db->fetchAll();
+        return $data;
     }
 }
