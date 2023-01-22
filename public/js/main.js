@@ -91,10 +91,7 @@ document.getElementById("addNew").addEventListener("click",() =>{
 		html += '</div>';
 		html += '<div class="row justify-content-between text-center">';
 			html += '<div class="form-group col-12 flex-column d-flex">';
-				html += '<label class="form-control-label px-3 labelAdd" for="Image">'; 
-					html += '<input required type="file" class = "inputAdd" name="Image[]" id="Image" accept="image/*">';
-					html += 'Add Picture';
-				html += '</label>';
+				html += '<input type="file" name = "Image[]" class="add_image_product">'; 
 			html += '</div>';
 		html += '</div>';
     var form  = document.createElement('div');

@@ -18,6 +18,7 @@ include_once APPROOT . '/views/inc/headerAdmin.inc.php'
                             <th>Description</th>
                             <th>Price</th>
                             <th>Quantity</th>
+                            <th>Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -34,6 +35,9 @@ include_once APPROOT . '/views/inc/headerAdmin.inc.php'
                                 </td>
                                 <td>
                                     <?= $Product->Quantity ?>
+                                </td>
+                                <td>
+                                    <?= $Product->date ?>
                                 </td>
                                 <td class="td-actions">
                                     <a href="<?= URLROOT ?>admin/ProductEdit/<?= $Product->id_p ?>">

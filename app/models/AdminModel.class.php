@@ -151,6 +151,9 @@ class AdminModel
     {
         $date = date("Y") . "-" . date("m") . "-" .date("d");
         $userId = $_SESSION['user_id'];
+        // echo '<pre>';
+        //         var_dump($name, $Prix, $Quantity, $Description, $Image,$date,$userId);
+        // die;
         $this->db->query("INSERT INTO product (Name, Description, Price, Quantity, Image, User_id,date) VALUES (:name,:desc,:price,:quan,:img,:userId,:date)");
         $this->db->bind(':name', $name);
         $this->db->bind(':desc', $Description);

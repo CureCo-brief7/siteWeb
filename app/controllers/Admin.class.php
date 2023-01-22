@@ -316,6 +316,25 @@ class Admin extends Controller
     }
     public function showProduct($id)
     {
-        echo $id;
+        if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+            redirect('admins');
+        } else {
+            $product = $this->adminModel->getProduct($id);
+            $data2 = [
+                'Product' => $product
+            ];
+            if ($_SESSION['user_id'] == null || empty($_SESSION['user_id']) || $_SESSION['user_id'] == ' ') {
+                $loginLogout = [
+                    'loginLogout' => 'admin',
+                    'name' => 'login'
+                ];
+            } else {
+                $loginLogout = [
+                    'loginLogout' => 'admin/logout',
+                    'name' => 'logout'
+                ];
+            }
+            $this->view('admin/productShow', $loginLogout, $data2);
+        }
     }
 }

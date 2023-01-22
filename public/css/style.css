@@ -469,36 +469,33 @@ button:focus {
   outline-width: 0
 }
 
-.labelAdd {
-	display: block;
-	width: 60vw;
-	max-width: 300px;
-	margin: 0 auto;
-	background-color: #00ff0a;
-	border-radius: 5px;
-	font-size: 1em;
-	line-height: 2.5em;
-	text-align: center;
+.add_image_product::-webkit-file-upload-button {
+  visibility: hidden;
 }
-
-.labelAdd:hover {
-	background-color: #02cf0a;
-	cursor: pointer;
+.add_image_product::before {
+  content: 'Add Picture For Product';
+  color: black;
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #7ed957);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
 }
-
-.labelAdd:active {
-	background-color: mediumaquamarine;
+.add_image_product:hover::before{
+  border-color: black;
 }
-
-.inputAdd {
-	border: 0;
-    clip: rect(1px, 1px, 1px, 1px);
-    height: 1px; 
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
+.add_image_product:active{
+  outline: 0; 
+}
+.add_image_product:active::before{
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
 }
 
 .file-upload {
