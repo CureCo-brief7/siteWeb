@@ -175,7 +175,21 @@ class AdminModel
         return $this->db->fetchAll();
     }
     function search($libelle){
-        $this->db->query("SELECT * FROM product p WHERE p.Name LIKE '%$libelle%'");
+        $this->db->query(" SELECT 
+                                * 
+                            FROM 
+                                product p 
+                            WHERE 
+                                p.Name LIKE '%$libelle%' 
+                            OR 
+                                p.Description LIKE '%$libelle%' 
+                            OR 
+                                p.Price LIKE '%$libelle%' 
+                            OR 
+                                p.Quantity LIKE '%$libelle%' 
+                            OR 
+                                p.date LIKE '%$libelle%'
+                        ");
         $this->db->execute();
         $data = $this->db->fetchAll();
         return $data;
