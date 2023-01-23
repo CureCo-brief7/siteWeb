@@ -9,7 +9,7 @@ include_once APPROOT . '/views/inc/headerAdmin.inc.php';
             <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
                 <h3>Add Product</h3>
                 <div class="card2">
-                    <form class="form-card" enctype="multipart/form-data" method="post" action="<?=URLROOT?>Admin/productAdd">
+                    <form id="form_action" class="form-card" enctype="multipart/form-data" method="post" >
                         <div id="addProductAdd"></div>
                         <div class="row justify-content-between">
                             <div class="form-group col-sm-6">
