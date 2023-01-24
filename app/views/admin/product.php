@@ -26,21 +26,48 @@ include_once APPROOT . '/views/inc/headerAdmin.inc.php'
                             <th class="text-center">#</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Price <span class="Decore">[</span> <span class="BY"><a
-                                        href="<?= URLROOT ?>Admin/orderProduct/PRICE/ASC">ASC</a></span> <span
-                                    class="Decore">|</span> <span class="BY"><a
-                                        href="<?= URLROOT ?>Admin/orderProduct/PRICE/DESC">DESC</a></span> <span
-                                    class="Decore">]</span></th>
-                            <th>Quantity <span class="Decore">[</span> <span class="BY"><a
-                                        href="<?= URLROOT ?>Admin/orderProduct/QUANTITY/ASC">ASC</a></span> <span
-                                    class="Decore">|</span> <span class="BY"><a
-                                        href="<?= URLROOT ?>Admin/orderProduct/QUANTITY/DESC">DESC</a></span> <span
-                                    class="Decore">]</span></th>
-                            <th>Date <span class="Decore">[</span> <span class="BY"><a
-                                        href="<?= URLROOT ?>Admin/orderProduct/DATE/ASC">ASC</a></span> <span
-                                    class="Decore">|</span> <span class="BY"><a
-                                        href="<?= URLROOT ?>Admin/orderProduct/DATE/DESC">DESC</a></span> <span
-                                    class="Decore">]</span></th>
+                            <th>
+                                <div>Price</div>
+                                <div style="display: flex;gap: 4px;align-items: baseline;">
+                                    <span class="Decore">[</span> 
+                                    <span class="BY">
+                                        <a href="<?= URLROOT ?>Admin/orderProduct/PRICE/ASC">ASC</a>
+                                    </span> 
+                                    <span class="Decore">|</span> 
+                                    <span class="BY">
+                                        <a href="<?= URLROOT ?>Admin/orderProduct/PRICE/DESC">DESC</a>
+                                    </span> 
+                                    <span class="Decore">]</span>
+                                </div>
+                            </th>
+                            <th>
+                                <div>Quantity</div>
+                                <div style="display: flex;gap: 4px;align-items: baseline;">
+                                    <span class="Decore">[</span> 
+                                    <span class="BY">
+                                        <a href="<?= URLROOT ?>Admin/orderProduct/QUANTITY/ASC">ASC</a>
+                                    </span> 
+                                    <span class="Decore">|</span> 
+                                    <span class="BY">
+                                        <a href="<?= URLROOT ?>Admin/orderProduct/QUANTITY/DESC">DESC</a>
+                                    </span> 
+                                    <span class="Decore">]</span>
+                                </div>
+                            </th>
+                            <th>
+                                <div>Date</div>
+                                <div style="display: flex;gap: 4px;align-items: baseline;">
+                                    <span class="Decore">[</span> 
+                                    <span class="BY">
+                                        <a href="<?= URLROOT ?>Admin/orderProduct/DATE/ASC">ASC</a>
+                                    </span> 
+                                    <span class="Decore">|</span> 
+                                    <span class="BY">
+                                        <a href="<?= URLROOT ?>Admin/orderProduct/DATE/DESC">DESC</a>
+                                    </span> 
+                                    <span class="Decore">]</span>
+                                </div>
+                            </th>
                             <th>Action</th>
                         </tr>
                     </thead>
